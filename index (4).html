@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Energia Master — Energia Solar Inteligente</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#FFC928;
+    --primary-hover:#E7B300;
+    --accent:#2DA9FF;
+    --bg:#050505;
+    --text:#FFFFFF;
+    --muted:rgba(255,255,255,.68);
+    --glass:rgba(255,255,255,.03);
+    --border:rgba(255,255,255,.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#000;
+    color:white;
+    overflow-x:hidden;
+    font-family:'Barlow',sans-serif;
+}
+
+/* =========================
+VIDEO BACKGROUND
+========================= */
+
+.video-wrapper{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-3;
+    overflow:hidden;
+    transform:scale(1.08);
+}
+
+.video-wrapper::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(to bottom,
+    rgba(0,0,0,.78),
+    rgba(0,0,0,.88)),
+    radial-gradient(circle at center,
+    rgba(0,0,0,.35),
+    rgba(0,0,0,.94));
+    z-index:2;
+}
+
+.video-bg{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* =========================
+GLOBAL
+========================= */
+
+.container{
+    width:100%;
+    max-width:1280px;
+    margin:auto;
+    padding:0 28px;
+}
+
+section{
+    position:relative;
+    z-index:5;
+}
+
+.section-spacing{
+    padding:120px 0;
+}
+
+.section-header{
+    max-width:760px;
+    margin-bottom:70px;
+}
+
+.section-header span{
+    color:var(--primary);
+}
+
+.section-header h2{
+    font-family:'Inter',sans-serif;
+    font-size:clamp(38px,5vw,72px);
+    line-height:1;
+    letter-spacing:-0.05em;
+    margin-bottom:24px;
+    font-weight:500;
+}
+
+.section-header p{
+    font-size:18px;
+    line-height:1.8;
+    color:rgba(255,255,255,.66);
+}
+
+.gradient-text{
+    color:var(--primary);
+    font-style:italic;
+}
+
+/* =========================
+LIQUID GLASS
+========================= */
+
+.liquid-glass{
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.1),
+    0 20px 50px rgba(0,0,0,.18);
+
+    position:relative;
+    overflow:hidden;
+}
+
+.liquid-glass::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    padding:1px;
+
+    background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.4) 0%,
+    rgba(255,255,255,.08) 20%,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0) 60%,
+    rgba(255,255,255,.08) 80%,
+    rgba(255,255,255,.4) 100%);
+
+    -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
+    pointer-events:none;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:999;
+
+    padding:24px 42px;
+
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+
+    gap:20px;
+}
+
+.logo{
+    font-family:'Inter',sans-serif;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:-0.04em;
+
+    justify-self:start;
+}
+
+.logo span{
+    color:var(--primary);
+}
+
+.logo sup{
+    font-size:10px;
+    top:-0.8em;
+    position:relative;
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    padding:8px 10px;
+    border-radius:999px;
+
+    justify-self:center;
+}
+
+.nav a{
+    text-decoration:none;
+    color:rgba(255,255,255,.84);
+
+    font-size:11px;
+    letter-spacing:.14em;
+    font-weight:600;
+
+    padding:12px 18px;
+    border-radius:999px;
+
+    transition:.25s ease;
+}
+
+.nav a:hover{
+    background:rgba(255,255,255,.06);
+    color:white;
+}
+
+.header-cta{
+    text-decoration:none;
+    color:white;
+
+    padding:15px 24px;
+    border-radius:999px;
+
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.14em;
+
+    transition:.3s ease;
+
+    justify-self:end;
+}
+
+.header-cta:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:180px 24px 120px;
+}
+
+.hero-content{
+    max-width:1200px;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:12px 22px;
+    border-radius:999px;
+
+    margin-bottom:34px;
+
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.08em;
+}
+
+.hero-title{
+    font-family:'Inter',sans-serif;
+    font-size:clamp(52px,6.5vw,96px);
+
+    line-height:.95;
+    letter-spacing:-0.06em;
+
+    margin-bottom:30px;
+
+    font-weight:500;
+}
+
+.hero-title .line-2{
+    display:block;
+    color:rgba(255,255,255,.48);
+}
+
+.hero-description{
+    max-width:760px;
+    margin:auto;
+
+    font-size:20px;
+    line-height:1.8;
+
+    color:rgba(255,255,255,.72);
+}
+
+.hero-buttons{
+    margin-top:44px;
+
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.btn-primary{
+    background:white;
+    color:black;
+
+    text-decoration:none;
+
+    padding:20px 36px;
+    border-radius:999px;
+
+    font-size:15px;
+    font-weight:600;
+
+    transition:.3s ease;
+}
+
+.btn-primary:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 40px rgba(255,255,255,.18);
+}
+
+.btn-outline{
+    text-decoration:none;
+    color:white;
+
+    padding:20px 36px;
+    border-radius:999px;
+
+    font-size:15px;
+    font-weight:600;
+
+    transition:.3s ease;
+}
+
+.btn-outline:hover{
+    background:rgba(255,255,255,.06);
+}
+
+.hero-stats{
+    margin-top:90px;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.stat-card{
+    padding:34px;
+    border-radius:28px;
+}
+
+.stat-card h3{
+    font-family:'Inter',sans-serif;
+    font-size:44px;
+    color:var(--primary);
+    margin-bottom:10px;
+}
+
+.stat-card p{
+    color:rgba(255,255,255,.64);
+    font-size:15px;
+}
+
+/* =========================
+SERVICES
+========================= */
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+}
+
+.service-card{
+    padding:36px;
+    border-radius:30px;
+    transition:.35s ease;
+}
+
+.service-card:hover{
+    transform:translateY(-6px);
+}
+
+.service-icon{
+    width:72px;
+    height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:22px;
+
+    font-size:28px;
+
+    margin-bottom:26px;
+
+    background:rgba(255,255,255,.04);
+}
+
+.service-card h3{
+    font-family:'Inter',sans-serif;
+    font-size:30px;
+    margin-bottom:16px;
+}
+
+.service-card p{
+    color:rgba(255,255,255,.66);
+    line-height:1.8;
+    font-size:16px;
+}
+
+/* =========================
+BENEFITS
+========================= */
+
+.benefits-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:26px;
+}
+
+.benefit-card{
+    padding:42px;
+    border-radius:30px;
+}
+
+.benefit-card h3{
+    font-family:'Inter',sans-serif;
+    font-size:28px;
+    margin-bottom:18px;
+}
+
+.benefit-card p{
+    line-height:1.8;
+    color:rgba(255,255,255,.66);
+}
+
+/* =========================
+TESTIMONIAL
+========================= */
+
+.testimonial{
+    padding:56px;
+    border-radius:34px;
+    text-align:center;
+    max-width:980px;
+    margin:auto;
+}
+
+.testimonial img{
+    width:88px;
+    height:88px;
+    object-fit:cover;
+    border-radius:50%;
+    margin:0 auto 28px;
+}
+
+.testimonial p{
+    font-size:24px;
+    line-height:1.7;
+    color:white;
+    font-family:'Inter',sans-serif;
+}
+
+.testimonial strong{
+    display:block;
+    margin-top:26px;
+    font-size:16px;
+    color:rgba(255,255,255,.72);
+}
+
+/* =========================
+FAQ
+========================= */
+
+.faq-grid{
+    display:grid;
+    gap:18px;
+}
+
+.faq-item{
+    padding:28px 30px;
+    border-radius:24px;
+}
+
+.faq-item h3{
+    font-size:20px;
+    margin-bottom:12px;
+    font-family:'Inter',sans-serif;
+}
+
+.faq-item p{
+    color:rgba(255,255,255,.66);
+    line-height:1.8;
+}
+
+/* =========================
+CTA
+========================= */
+
+.cta-box{
+    padding:90px 60px;
+    border-radius:40px;
+    text-align:center;
+}
+
+.cta-box h2{
+    font-family:'Inter',sans-serif;
+    font-size:clamp(42px,5vw,78px);
+    line-height:1;
+    letter-spacing:-0.05em;
+
+    margin-bottom:24px;
+}
+
+.cta-box p{
+    max-width:720px;
+    margin:auto;
+
+    color:rgba(255,255,255,.72);
+
+    line-height:1.8;
+    font-size:18px;
+}
+
+.cta-box .hero-buttons{
+    margin-top:38px;
+}
+
+/* =========================
+FOOTER
+========================= */
+
+.footer{
+    padding:40px 20px;
+    text-align:center;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    color:rgba(255,255,255,.46);
+    font-size:14px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:1080px){
+
+    .hero-stats,
+    .services-grid,
+    .benefits-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:860px){
+
+    .header{
+        padding:20px;
+        grid-template-columns:1fr auto;
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .hero{
+        padding-top:160px;
+    }
+
+    .hero-title{
+        font-size:54px;
+    }
+
+    .section-spacing{
+        padding:90px 0;
+    }
+
+    .cta-box{
+        padding:60px 28px;
+    }
+}
+
+@media(max-width:640px){
+
+    .hero-title{
+        font-size:46px;
+    }
+
+    .hero-description{
+        font-size:17px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .btn-primary,
+    .btn-outline{
+        width:100%;
+    }
+
+    .testimonial{
+        padding:34px 24px;
+    }
+
+    .testimonial p{
+        font-size:20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="video-wrapper">
+
+<video
+class="video-bg"
+autoplay
+muted
+loop
+playsinline
+id="bgVideo">
+
+<source src="525804_Surface_Solar_Panel_3840x2160.mp4" type="video/mp4">
+
+</video>
+
+</div>
+
+<header class="header">
+
+<div class="logo">
+Energia <span>Master</span><sup>TM</sup>
+</div>
+
+<nav class="nav liquid-glass">
+
+<a href="#solucoes">SOLUÇÕES</a>
+<a href="#beneficios">BENEFÍCIOS</a>
+<a href="#depoimentos">CLIENTES</a>
+<a href="#faq">FAQ</a>
+
+</nav>
+
+<a href="https://wa.me/5583988888888" class="header-cta liquid-glass">
+SOLICITAR ORÇAMENTO
+</a>
+
+</header>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="hero-badge liquid-glass">
+⚡ Energia limpa. Economia inteligente.
+</div>
+
+<h1 class="hero-title">
+
+Reduza sua conta
+<span class="gradient-text">de energia.</span>
+
+<span class="line-2">
+Transforme sol em economia.
+</span>
+
+</h1>
+
+<p class="hero-description">
+
+Projetos solares premium para residências e empresas que querem economizar todos os meses com uma solução moderna, sustentável e altamente eficiente.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="https://wa.me/5583988888888" class="btn-primary">
+Quero economizar agora
+</a>
+
+<a href="#solucoes" class="btn-outline liquid-glass">
+Ver soluções solares
+</a>
+
+</div>
+
+<div class="hero-stats">
+
+<div class="stat-card liquid-glass">
+<h3>+500</h3>
+<p>Projetos instalados com excelência</p>
+</div>
+
+<div class="stat-card liquid-glass">
+<h3>70%</h3>
+<p>Economia média na conta de luz</p>
+</div>
+
+<div class="stat-card liquid-glass">
+<h3>25+</h3>
+<p>Anos de vida útil dos sistemas</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section-spacing" id="solucoes">
+
+<div class="container">
+
+<div class="section-header">
+
+<h2>
+Soluções solares com foco em
+<span>performance.</span>
+</h2>
+
+<p>
+Tecnologia de ponta, engenharia especializada e instalação premium para gerar máxima eficiência energética.
+</p>
+
+</div>
+
+<div class="services-grid">
+
+<div class="service-card liquid-glass">
+
+<div class="service-icon">
+☀️
+</div>
+
+<h3>Energia Residencial</h3>
+
+<p>
+Reduza drasticamente sua conta de energia com um sistema fotovoltaico sob medida para sua casa.
+</p>
+
+</div>
+
+<div class="service-card liquid-glass">
+
+<div class="service-icon">
+⚡
+</div>
+
+<h3>Energia Comercial</h3>
+
+<p>
+Projetos inteligentes para empresas que desejam diminuir custos fixos operacionais e aumentar lucratividade.
+</p>
+
+</div>
+
+<div class="service-card liquid-glass">
+
+<div class="service-icon">
+🔋
+</div>
+
+<h3>Projeto Completo</h3>
+
+<p>
+Cuidamos de todo o processo: engenharia, homologação, instalação e suporte contínuo pós-venda.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section-spacing" id="beneficios">
+
+<div class="container">
+
+<div class="section-header">
+
+<h2>
+Por que investir em
+<span>energia solar?</span>
+</h2>
+
+<p>
+Além da economia imediata, a energia solar valoriza seu imóvel e garante mais independência energética.
+</p>
+
+</div>
+
+<div class="benefits-grid">
+
+<div class="benefit-card liquid-glass">
+
+<h3>Economia recorrente</h3>
+
+<p>
+Diminua sua conta de energia todos os meses e proteja-se contra aumentos constantes da tarifa elétrica.
+</p>
+
+</div>
+
+<div class="benefit-card liquid-glass">
+
+<h3>Valorização do imóvel</h3>
+
+<p>
+Imóveis com energia solar possuem maior valorização no mercado e mais atratividade para compradores.
+</p>
+
+</div>
+
+<div class="benefit-card liquid-glass">
+
+<h3>Sustentabilidade</h3>
+
+<p>
+Produza energia limpa e renovável reduzindo impactos ambientais e contribuindo para um futuro mais sustentável.
+</p>
+
+</div>
+
+<div class="benefit-card liquid-glass">
+
+<h3>Baixa manutenção</h3>
+
+<p>
+Os sistemas solares exigem pouca manutenção e oferecem longa durabilidade com alta eficiência.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section-spacing" id="depoimentos">
+
+<div class="container">
+
+<div class="testimonial liquid-glass">
+
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop" alt="Cliente satisfeita">
+
+<p>
+“Minha conta caiu drasticamente logo no primeiro mês. O atendimento foi impecável e a instalação extremamente rápida.”
+</p>
+
+<strong>
+Mariana Alves • João Pessoa
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section-spacing" id="faq">
+
+<div class="container">
+
+<div class="section-header">
+
+<h2>
+Dúvidas frequentes sobre
+<span>energia solar.</span>
+</h2>
+
+<p>
+As principais perguntas de quem está pensando em reduzir custos com energia solar.
+</p>
+
+</div>
+
+<div class="faq-grid">
+
+<div class="faq-item liquid-glass">
+
+<h3>Em quanto tempo o investimento retorna?</h3>
+
+<p>
+Na maioria dos casos, o retorno acontece entre 3 e 5 anos dependendo do consumo energético do imóvel.
+</p>
+
+</div>
+
+<div class="faq-item liquid-glass">
+
+<h3>Funciona em dias nublados?</h3>
+
+<p>
+Sim. Mesmo com baixa incidência solar o sistema continua gerando energia normalmente.
+</p>
+
+</div>
+
+<div class="faq-item liquid-glass">
+
+<h3>Precisa de muita manutenção?</h3>
+
+<p>
+Não. A manutenção é simples e geralmente envolve apenas limpeza periódica dos painéis.
+</p>
+
+</div>
+
+<div class="faq-item liquid-glass">
+
+<h3>Posso financiar o projeto?</h3>
+
+<p>
+Sim. Trabalhamos com opções de financiamento facilitado para projetos residenciais e comerciais.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section-spacing">
+
+<div class="container">
+
+<div class="cta-box liquid-glass">
+
+<h2>
+Sua economia começa
+agora ⚡
+</h2>
+
+<p>
+Descubra quanto você pode economizar utilizando energia solar inteligente com um projeto feito sob medida.
+</p>
+
+<div class="hero-buttons">
+
+<a href="https://wa.me/5583988888888" class="btn-primary">
+Falar no WhatsApp
+</a>
+
+<a href="#solucoes" class="btn-outline liquid-glass">
+Ver soluções
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+© 2026 Energia Master — Energia Solar Inteligente. Todos os direitos reservados.
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+<script>
+
+const video = document.getElementById('bgVideo');
+
+video.addEventListener('loadedmetadata', () => {
+    video.playbackRate = 1.1;
+});
+
+const wrapper = document.querySelector('.video-wrapper');
+
+let currentX = 0;
+let currentY = 0;
+
+let targetX = 0;
+let targetY = 0;
+
+window.addEventListener('mousemove', (e) => {
+
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+
+    targetX = ((e.clientX - cx) / cx) * 20;
+    targetY = ((e.clientY - cy) / cy) * 20;
+});
+
+function animate(){
+
+    currentX += (targetX - currentX) * 0.05;
+    currentY += (targetY - currentY) * 0.05;
+
+    gsap.set(wrapper,{
+        x: currentX,
+        y: currentY
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
